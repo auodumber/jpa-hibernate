@@ -45,8 +45,20 @@ if (employee == null) {
 
 **Example**:
 ```java
-Employee employee = session.load(Employee.class, 1); // Returns a proxy object.
-System.out.println(employee.getName()); // Triggers a database query if not in cache
+Session session = sessionFactory.openSession();
+
+// Use load to get a proxy object
+Employee employeeProxy = session.load(Employee.class, 1L);
+
+// Proxy object is returned immediately, no database query yet
+System.out.println("Proxy Class: " + employeeProxy.getClass());
+
+// Accessing the ID does not trigger a query
+System.out.println("Employee ID: " + employeeProxy.getId());
+
+// Accessing any other property triggers a query
+System.out.println("Employee Name: " + employeeProxy.getName());
+
 
 //If the entity does not exist in the database, an exception is thrown when the proxy is accessed for the first time.
 //Exception: A org.hibernate.ObjectNotFoundException is thrown when Hibernate tries to initialize the proxy but fails to find the entity in the database.
@@ -105,13 +117,13 @@ if (employee == null) {
 
 ## **Key Differences**
 
-| Feature            | `get()`                    | `load()`                   | `find()`                     |
-|---------------------|----------------------------|----------------------------|------------------------------|
-| **API**            | Hibernate-specific         | Hibernate-specific         | JPA-compliant               |
-| **Fetch Strategy** | Eager                      | Lazy (returns a proxy)     | Eager                       |
-| **Cache Check**    | Yes                        | Yes                        | Yes                         |
-| **Return Type**    | Actual entity or `null`    | Proxy or exception         | Actual entity or `null`     |
-| **Behavior for Non-Existent Entity** | Returns `null`         | Throws `ObjectNotFoundException` | Returns `null`            |
+| Feature            | `get()`                    | `load()`                   | `find()`                     |  `getReference()`                   |
+|---------------------|----------------------------|----------------------------|------------------------------|------------------------------------|
+| **API**            | Hibernate-specific         | Hibernate-specific         | JPA-compliant               | JPA-compliant                        |
+| **Fetch Strategy** | Eager                      | Lazy (returns a proxy)     | Eager                       | Lazy (returns a proxy)               |
+| **Cache Check**    | Yes                        | Yes                        | Yes                         | Yes                                  | 
+| **Return Type**    | Actual entity or `null`    | Proxy or exception         | Actual entity or `null`     |  Proxy or exception                  |
+| **Behavior for Non-Existent Entity** | Returns `null`         | Throws `ObjectNotFoundException` | Returns `null`| Throws EntityNotFoundException |
 
 ---
 
