@@ -12,7 +12,7 @@ This document explains the differences between `get()`, `load()`, and `find()` m
 | `get()` | Eager          | Hibernate-specific | Returns `null`                   | Retrieves an entity immediately.       |
 | `load()`| Lazy           | Hibernate-specific | Throws `ObjectNotFoundException` | Returns a proxy; database access is deferred. |
 | `find()`| Eager          | JPA-compliant      | Returns `null`                   | Retrieves an entity immediately.       |
-
+| `getReference()'| Lazy   | JPA-compliant      | Returns Throws EntityNotFoundException | Returns a proxy; database access is deferred |
 ---
 
 ## **1. `get()` (Hibernate-Specific)**
@@ -69,6 +69,37 @@ if (employee == null) {
     System.out.println("Employee not found");
 }
 ```
+---
+## **4. `getReference()` (JPA-Specific)**
+
+- **Usage**: `EntityManager.getReference(Class<T> entityType, Object primaryKey);`
+- **Description**:
+      - The method returns a proxy object that acts as a reference to the entity.
+      - The actual data for the entity is only loaded from the database when a property of the entity is accessed (lazy loading).
+      - If the entity does not exist in the database and you attempt to access its non-primary-key properties, the EntityNotFoundException is thrown:
+
+  **Example**
+  ```java
+  EntityManager em = entityManagerFactory.createEntityManager();
+
+// Use getReference to get a proxy object
+Employee employeeProxy = em.getReference(Employee.class, 1L);
+
+// The proxy is returned immediately, no database query yet
+System.out.println("Proxy Class: " + employeeProxy.getClass());
+
+// Accessing the ID does not trigger a query
+System.out.println("Employee ID: " + employeeProxy.getId()); 
+
+// Accessing any other property triggers a query
+System.out.println("Employee Name: " + employeeProxy.getName());
+
+Employee employeeProxy = em.getReference(Employee.class, 999L); // Entity with ID 999 does not exist
+System.out.println(employeeProxy.getName()); // Throws EntityNotFoundException
+
+```
+
+
 
 ---
 
