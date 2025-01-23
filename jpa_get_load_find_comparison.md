@@ -37,14 +37,19 @@ if (employee == null) {
 
 - **Usage**: `Session.load(Class<T> entityType, Serializable id)`
 - **Description**:
-  - Fetches the entity lazily (returns a proxy).
+  - The load method initially returns a proxy object, not the actual entity. This proxy object contains the entity's identifier but does not load the rest of the entity's        data immediately (lazy loading).
+  - When any property of the entity (other than the identifier) is accessed for the first time, Hibernate initializes the proxy by executing a query to fetch the actual 
+    data from the database.
   - Throws `ObjectNotFoundException` if the proxy is accessed and the entity does not exist.
   - Useful when the entity might not be needed immediately or when you are sure it exists.
 
 **Example**:
 ```java
-Employee employee = session.load(Employee.class, 1);
+Employee employee = session.load(Employee.class, 1); // Returns a proxy object.
 System.out.println(employee.getName()); // Triggers a database query if not in cache
+
+//If the entity does not exist in the database, an exception is thrown when the proxy is accessed for the first time.
+//Exception: A org.hibernate.ObjectNotFoundException is thrown when Hibernate tries to initialize the proxy but fails to find the entity in the database.
 ```
 
 ---
