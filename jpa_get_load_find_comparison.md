@@ -82,22 +82,22 @@ if (employee == null) {
   ```java
   EntityManager em = entityManagerFactory.createEntityManager();
 
-// Use getReference to get a proxy object
-Employee employeeProxy = em.getReference(Employee.class, 1L);
+  // Use getReference to get a proxy object
+  Employee employeeProxy = em.getReference(Employee.class, 1L);
 
-// The proxy is returned immediately, no database query yet
-System.out.println("Proxy Class: " + employeeProxy.getClass());
+  // The proxy is returned immediately, no database query yet
+  System.out.println("Proxy Class: " + employeeProxy.getClass());
 
-// Accessing the ID does not trigger a query
-System.out.println("Employee ID: " + employeeProxy.getId()); 
+  // Accessing the ID does not trigger a query
+  System.out.println("Employee ID: " + employeeProxy.getId()); 
 
-// Accessing any other property triggers a query
-System.out.println("Employee Name: " + employeeProxy.getName());
+  // Accessing any other property triggers a query
+  System.out.println("Employee Name: " + employeeProxy.getName());
 
-Employee employeeProxy = em.getReference(Employee.class, 999L); // Entity with ID 999 does not exist
-System.out.println(employeeProxy.getName()); // Throws EntityNotFoundException
-
+  Employee employeeProxy = em.getReference(Employee.class, 999L); // Entity with ID 999 does not exist
+  System.out.println(employeeProxy.getName()); // Throws EntityNotFoundException
 ```
+
 
 
 
