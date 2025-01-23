@@ -90,9 +90,9 @@ if (employee == null) {
       - The actual data for the entity is only loaded from the database when a property of the entity is accessed (lazy loading).
       - If the entity does not exist in the database and you attempt to access its non-primary-key properties, the EntityNotFoundException is thrown:
 
-  **Example**
-  ```java
-  EntityManager em = entityManagerFactory.createEntityManager();
+**Example**
+```java
+ EntityManager em = entityManagerFactory.createEntityManager();
 
   // Use getReference to get a proxy object
   Employee employeeProxy = em.getReference(Employee.class, 1L);
@@ -109,24 +109,21 @@ if (employee == null) {
   Employee employeeProxy = em.getReference(Employee.class, 999L); // Entity with ID 999 does not exist
   System.out.println(employeeProxy.getName()); // Throws EntityNotFoundException
 ```
-
-
-
-
+ 
 ---
 
 ## **Key Differences**
 
-| Feature            | `get()`                    | `load()`                   | `find()`                     |  `getReference()`                   |
-|---------------------|----------------------------|----------------------------|------------------------------|------------------------------------|
-| **API**            | Hibernate-specific         | Hibernate-specific         | JPA-compliant               | JPA-compliant                        |
-| **Fetch Strategy** | Eager                      | Lazy (returns a proxy)     | Eager                       | Lazy (returns a proxy)               |
-| **Cache Check**    | Yes                        | Yes                        | Yes                         | Yes                                  | 
-| **Return Type**    | Actual entity or `null`    | Proxy or exception         | Actual entity or `null`     |  Proxy or exception                  |
-| **Behavior for Non-Existent Entity** | Returns `null`         | Throws `ObjectNotFoundException` | Returns `null`| Throws EntityNotFoundException |
+| Feature                        | `get()`                     | `load()`                      | `find()`                     | `getReference()`               |
+|--------------------------------|-----------------------------|-------------------------------|------------------------------|--------------------------------|
+| **API**                        | Hibernate-specific          | Hibernate-specific            | JPA-compliant                | JPA-compliant                  |
+| **Fetch Strategy**             | Eager                       | Lazy (returns a proxy)        | Eager                        | Lazy (returns a proxy)         |
+| **Cache Check**                | Yes                         | Yes                           | Yes                          | Yes                            | 
+| **Return Type**                | Actual entity or `null`     | Proxy or exception            | Actual entity or `null`      | Proxy or exception             |
+| **Behavior for Non-Existent Entity** | Returns `null`              | Throws `ObjectNotFoundException` | Returns `null`               | Throws `EntityNotFoundException` |
+
 
 ---
-
 ## **Recommendations**
 
 - Use **`find()`** for standard JPA applications.
