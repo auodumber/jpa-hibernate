@@ -12,7 +12,7 @@ This document explains the differences between `get()`, `load()`, and `find()` m
 | `get()` | Eager          | Hibernate-specific | Returns `null`                   | Retrieves an entity immediately.       |
 | `load()`| Lazy           | Hibernate-specific | Throws `ObjectNotFoundException` | Returns a proxy; database access is deferred. |
 | `find()`| Eager          | JPA-compliant      | Returns `null`                   | Retrieves an entity immediately.       |
-| `getReference()'| Lazy   | JPA-compliant      | Returns Throws EntityNotFoundException | Returns a proxy; database access is deferred |
+| `getReference()'| Lazy   | JPA-compliant      | Throws `EntityNotFoundException` | Returns a proxy; database access is deferred |
 ---
 
 ## **1. `get()` (Hibernate-Specific)**
