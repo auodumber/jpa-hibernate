@@ -21,11 +21,11 @@ public class PersistMethod {
         // Step 1: Persist a new Student object
         Student student = new Student("Jane", LocalDate.now(), "USA");
         session.persist(student); // Object is now in the persistence context
-        session.flush(); //persist method doest insert immediately, it fires insert query after transaction commit so we're forcefully inserting
+        session.flush(); //persist method does not insert immediately, it fires insert query after transaction commit so we're forcefully inserting
         System.out.println("Persisted Student: " + student);
 
         // Step 2: detach the object
-        session.detach(student); // Removes the object from the persistence context
+        // session.detach(student); // Removes the object from the persistence context
         System.out.println("Student evicted from session");
 
         // Step 3: Update the detached object

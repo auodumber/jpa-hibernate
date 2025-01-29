@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class SaveMethod {
     public static void main(String[] args) {
         Session session = PersistenceUtil.getHibernateSession();
-         //Begin the transaction
+        //Begin the transaction
         session.getTransaction().begin();
 
         //save()  is deprecated since version 6.0
