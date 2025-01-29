@@ -25,7 +25,7 @@ public class PersistMethod {
         System.out.println("Persisted Student: " + student);
 
         // Step 2: detach the object
-        // session.detach(student); // Removes the object from the persistence context
+        session.detach(student); // Removes the object from the persistence context
         System.out.println("Student evicted from session");
 
         // Step 3: Update the detached object
@@ -39,7 +39,7 @@ public class PersistMethod {
         PersistenceUtil.closeEntityManager(session);
 
         //Example 2
-        // Open a new session to verify the database state
+        //Open a new session to verify the database state
         EntityManager entityManager2 = PersistenceUtil.getEntityManager();
 
         entityManager2.getTransaction().begin();
