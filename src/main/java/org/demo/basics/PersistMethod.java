@@ -20,7 +20,9 @@ public class PersistMethod {
 
         // Step 1: Persist a new Student object
         Student student = new Student("Jane", LocalDate.now(), "USA");
-        session.persist(student); // Object is now in the persistence context
+        session.persist(student); // Object is now in the persistence context, A call to sequence happens here to get identifier (as we are using postgres)
+        // for "identity" generator  it doesn't guarantee that the identifier value will be assigned to the persistent instance immediately
+
         session.flush(); //persist method does not insert immediately, it fires insert query after transaction commit so we're forcefully inserting
         System.out.println("Persisted Student: " + student);
 
