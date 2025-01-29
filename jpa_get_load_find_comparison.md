@@ -128,5 +128,5 @@ if (employee == null) {
 
 - Use **`find()`** for standard JPA applications.
 - Use **`get()`** if you're working directly with Hibernate and need eager fetching.
-- Use **`load()`** if you're certain the entity exists and want to defer database access.
+- Use **`load()`** if you're certain the entity exists and want to defer database access, This API is Deprecated in Hibernate 6.0
 - Use **`getReference()`** when you only need the reference (proxy) to the entity, such as setting a foreign key or establishing a relationship between entities, but you      don't need to access the full entity's data immediately
