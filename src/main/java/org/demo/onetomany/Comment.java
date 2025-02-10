@@ -15,7 +15,8 @@ public class Comment {
 
     private String comment;
 
-    @ManyToOne  //we don't specify this then we need enable join column annotation in post class s
+    @ManyToOne  //we don't specify this then we need enable join column annotation in post class,
+    //also called as one directional relationship where Post entity knows Comment but Comment entity does not know about Posts(Post will be owner)
     private Post post;
 
     public int getCommentId() {

@@ -20,6 +20,7 @@ public class Post {
     @OneToMany(mappedBy = "post",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     //@JoinColumn(name = "post_id")
     //if We don't mention mapped by then database will create another table for mapping like many-to-many relationship
+    //Mapped by is always opposite to owner of relationship (In this case comment is owner of this relation because it has foreign key)
     private List<Comment> comments; //One post have multiple comments
 
     public int getId() {
