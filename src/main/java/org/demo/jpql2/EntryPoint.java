@@ -3,13 +3,12 @@ package org.demo.jpql2;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.demo.jpql2.dto.CountedEnrollmentForStudent;
-import org.demo.jpql2.dto.EnrolledStudent;
 import org.demo.util.PersistenceUtil;
 
 /**
  * @author Auodumbar
  */
-public class Entrypoint {
+public class EntryPoint {
 
     public static void main(String[] args) {
         EntityManager entityManager = PersistenceUtil.getEntityManager();
@@ -26,13 +25,11 @@ public class Entrypoint {
         TypedQuery<EnrolledStudent> query = entityManager.createQuery(jpql, EnrolledStudent.class);
         query.getResultList().forEach(data -> System.out.println( data.getStudent2() +" "+data.getEnrollment()));
 */
-/*
 
         String jpql = getCountedEnrollments();
         TypedQuery<CountedEnrollmentForStudent> query = entityManager.createQuery(jpql, CountedEnrollmentForStudent.class);
         query.getResultList().forEach(data -> System.out.println(data.s()+" " +data.count()));
 
-*/
 
 
         entityManager.getTransaction().commit();

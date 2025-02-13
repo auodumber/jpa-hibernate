@@ -1,0 +1,32 @@
+Hibernate:
+    select
+        a1_0.id,
+        a1_0.name
+    from
+        authors a1_0
+Hibernate:
+    select
+        bl1_0.authorsList_id,
+        bl1_1.id,
+        bl1_1.title
+    from
+        authors_books bl1_0
+    join
+        books bl1_1
+            on bl1_1.id=bl1_0.booksList_id
+    where
+        bl1_0.authorsList_id=?
+[Book{id=1, title='Spring in Action'}, Book{id=2, title='Spring AOP'}]
+Hibernate:
+    select
+        bl1_0.authorsList_id,
+        bl1_1.id,
+        bl1_1.title
+    from
+        authors_books bl1_0
+    join
+        books bl1_1
+            on bl1_1.id=bl1_0.booksList_id
+    where
+        bl1_0.authorsList_id=?
+[Book{id=3, title='Investopedia'}]

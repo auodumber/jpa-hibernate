@@ -1,18 +1,28 @@
 package org.demo.jpql2.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.List;
 
 /**
  * @author Auodumbar
+ * <p>
+ * Basically we can use ant jpql query in Named Queries
  */
 
 @Entity
-@Table(name = "student",schema = "university")
+@Table(name = "student", schema = "university")
+@NamedQueries({
+        @NamedQuery(name = "getAllStudents", query = "SELECT s FROM Student2 s"),
+        @NamedQuery(name = "studentGroupByName",
+                query = """
+                        SELECT NEW org.demo.jpql2.dto.StudentGroupByName(s.name,count(s))
+                        FROM Student2 s
+                        GROUP BY s.name
+                        HAVING s.name LIKE 'A%'
+                        """
+        )
+})
 public class Student2 {
 
     @Id
@@ -50,8 +60,9 @@ public class Student2 {
     @Override
     public String toString() {
         return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+               "id=" + id +
+               ", name='" + name + '\'' +
+               '}';
     }
+    
 }
